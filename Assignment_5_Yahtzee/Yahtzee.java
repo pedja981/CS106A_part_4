@@ -114,29 +114,91 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	
 	
 	private int calculateScore (int[] dice) {
-		turnScore = 10;
-		return turnScore;
-	}
-	
-	
-	/*for (int range = 0; range<=10; range++) {
-		String label;
-		switch (range) {
-		case 0: label = "00-09"; break;
-		case 10: label = "100"; break;
-		default: label = (10*range)+"-"+(10*range+9); break;
+				
+		turnScore = 0;
+		if (category == 1) {
+			for (int i=0; i<5; i++) {
+				if (dice[i] == 1) {turnScore ++;}
+			}
+		} 
+		
+		else if (category == 2) {
+			for (int i=0; i<5; i++) {
+				if (dice[i] == 2) {turnScore = turnScore+2;}
+			}
 		}
-		String stars = printStars(arrayHistogram[range]);
-		println(label + ": " + stars);
-	}*/
-	
-	
-	
-	
-	
-	
-	
-	
+		
+		else if (category == 3) {
+			for (int i=0; i<5; i++) {
+				if (dice[i] == 3) {turnScore = turnScore+3;}
+			}
+		}
+		
+		else if (category == 4) {
+			for (int i=0; i<5; i++) {
+				if (dice[i] == 4) {turnScore = turnScore+4;}
+			}
+		}
+		
+		else if (category == 5) {
+			for (int i=0; i<5; i++) {
+				if (dice[i] == 5) {turnScore = turnScore+5;}
+			}
+		}
+		
+		else if (category == 6) {
+			for (int i=0; i<5; i++) {
+				if (dice[i] == 6) {turnScore = turnScore+6;}
+			}
+		}
+		
+		// three of a kind
+		else if (category == 9) {
+			for (int i=0; i<5; i++) {
+				turnScore += dice[i];
+			}
+		}
+		
+		// four of a kind
+		else if (category == 10) {
+			for (int i=0; i<5; i++) {
+				turnScore += dice[i];
+			}
+		}
+		
+		// full house
+		else if (category ==11) {
+			turnScore = 25;
+		}
+		
+		// small straight
+		else if (category ==12) {
+			turnScore = 30;
+		}
+		
+		// large straight
+		else if (category ==13) {
+			turnScore = 40;
+		}
+		
+		// yahtzee!
+		else if (category ==14) {
+			turnScore = 50;
+		}
+		
+		// chance
+		else if (category == 15) {
+			for (int i=0; i<5; i++) {
+				turnScore += dice[i];
+			}
+		}
+		
+		// to see eventual mistake
+		else turnScore = 77;
+		
+		return turnScore;
+
+	}
 	
 	
 	// initializing the 2-dimensional score array
