@@ -22,10 +22,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			playerNames[i - 1] = dialog.readLine("Enter name for player " + i);
 		}
 		display = new YahtzeeDisplay(getGCanvas(), playerNames);
+		
 		playGame();
 	}
 
 	private void playGame() {
+
 		score = initScore();
 		while(true) {playOneTurn();}
 		
@@ -47,16 +49,32 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			dice = new int[5];
 			dice = rollDiceThreeTimes();
 			
-			category = display.waitForPlayerToSelectCategory();
+			// prevent user to overwrite existent result
+			while (true) {
+				category = display.waitForPlayerToSelectCategory();
+				if (score[i-1][category-1] == 0) break;
+			} 
 			
 			//checkForCategory();
 			if (checkForCategory()) {
 				turnScore = calculateScore(dice);
+				score[i-1][category-1] = turnScore;
+				score[i-1][16] += turnScore;
+				int playerTotal = score[i-1][16];
 				display.updateScorecard(category, i, turnScore);
+				display.updateScorecard(17, i, playerTotal);
+				if (1<=category && category<=6) {
+					score[i-1][6] += turnScore;
+					display.updateScorecard(7, i, score[i-1][6]);
+					if (score[i-1][6] > 60) {
+						score[i-1][7] = 35;
+						display.updateScorecard(8, i, 35);
+						score[i-1][7] += 35;
+					}
+				}				
 			} else {
 				display.updateScorecard(category, i, 0);
 			}
-			//display.updateScorecard(category, i, 10);
 		}
 	}
 	
@@ -201,6 +219,9 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 	
 	
+	
+	
+	
 	// initializing the 2-dimensional score array
 	private int[][] initScore() {
 		score = new int[nPlayers][17];
@@ -212,9 +233,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		return score;
 	}
 	
-	
-	
-		
+			
 /* Private instance variables */
 	private int category;
 	private int[] dice;
