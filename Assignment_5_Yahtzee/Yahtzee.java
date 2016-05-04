@@ -34,14 +34,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		score = initScore();
 		while(true) {playOneTurn();}
 		
-		/* display.printMessage("Press \"Roll dice\" to roll the dice.");
-
-		display.waitForPlayerToClickRoll(nPlayers);
-		rollDiceThreeTimes();
-		
-		// trial  
-		int category = display.waitForPlayerToSelectCategory();
-		display.updateScorecard(category, 1, 10); */
+	
 	}
 	
 	private void playOneTurn() {
@@ -82,7 +75,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 	
 	
-	private /*void*/ int[] rollDiceThreeTimes(){
+	private int[] rollDiceThreeTimes(){
 		int[] dice = new int[N_DICE];
 		firstRollDice(dice, N_DICE);
 		display.displayDice(dice);
@@ -122,22 +115,6 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		return arr;
 	}
 		
-	/*private int[] rollOneDice(int[] arr, int i) {
-		arr[i] = rgen.nextInt(1, 6);
-		return arr;
-	}*/
-	
-	/*private boolean checkForCategory() {
-		if (YahtzeeMagicStub.checkCategory(dice, category)) {
-			return true;
-		} else {return false;}
-	}*/
-	
-	
-	
-	
-	
-
 	/* Pre-condition: The player has finished rolling the dice and selects a category. 
 	 * This method returns true if the selected category matches 
 	 * to the actual category correctly, and false if it does not match. */
